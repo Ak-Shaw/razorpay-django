@@ -16,6 +16,23 @@ def home(request):
         return render(request, "index.html", {'payment':payment})
     return render(request, "index.html")
 
+# @csrf_exempt
+# def success(request):
+#     print(request)
+#     print(request.body)
+#     if request.method == "POST":
+#         received_data = request.body
+#         data = json.loads(received_data)
+#         s = json.dumps(data, indent=4, sort_keys=True)
+#         print(s)
+#         print(data['id'])
+#         order_id = data['id']
+#         user = Payer.objects.filter(payment_id = order_id).first()
+#         print(user)
+#         user.paid = True
+#         user.save()
+#     return render(request, "success.html")
+
 @csrf_exempt
 def success(request):
     print(request)
@@ -25,8 +42,8 @@ def success(request):
         data = json.loads(received_data)
         s = json.dumps(data, indent=4, sort_keys=True)
         print(s)
-        print(data['id'])
-        order_id = data['id']
+        print(data['razorpay_order_id'])
+        order_id = data['razorpay_order_id']
         user = Payer.objects.filter(payment_id = order_id).first()
         print(user)
         user.paid = True

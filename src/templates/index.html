@@ -35,13 +35,37 @@
       "image": "https://example.com/your_logo",
       "order_id": "{{payment.id}}",
       "handler": function (response){
-          alert(response.razorpay_payment_id);
-          alert(response.razorpay_order_id);
-          alert(response.razorpay_signature);
-          
+            
+            // The handler is reached on successful payment.
+
+            alert(response.razorpay_payment_id);
+            alert(response.razorpay_order_id);
+            alert(response.razorpay_signature);
+            
+            // Start of POST API call to the database to mark an initiated payment as success.
+            
+            const data = JSON.stringify({razorpay_order_id:response.razorpay_order_id})
+            
+            const xhr = new XMLHttpRequest()
+            xhr.withCredentials = true
+
+            xhr.addEventListener('readystatechange', function() {
+            if (this.readyState === this.DONE) {
+                console.log(this.responseText)
+            }
+            })
+
+            xhr.open('POST', '/success')
+            xhr.setRequestHeader('content-type', 'application/json')
+            xhr.send(data)
+
+            // End of POST API call.
+
+            // Redirection to payment success page.
+            window.open("/success", "_parent");
       },
       "prefill": {
-          "name": "Ayush ",
+          "name": "Ayush",
           "email": "ayushshawz@gmail.com",
           "contact": "9831284491"
       },
