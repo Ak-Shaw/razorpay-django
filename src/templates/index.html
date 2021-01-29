@@ -41,7 +41,10 @@
             alert(response.razorpay_payment_id);
             alert(response.razorpay_order_id);
             alert(response.razorpay_signature);
-            
+
+            // Redirection to payment success page.
+            window.open("/success", "_parent");
+
             // Start of POST API call to the database to mark an initiated payment as success.
             
             const data = JSON.stringify({razorpay_order_id:response.razorpay_order_id})
@@ -60,9 +63,6 @@
             xhr.send(data)
 
             // End of POST API call.
-
-            // Redirection to payment success page.
-            window.open("/success", "_parent");
       },
       "prefill": {
           "name": "Ayush",

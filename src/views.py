@@ -4,6 +4,7 @@ from .models import Payer
 from django.views.decorators.csrf import csrf_exempt
 import json
 
+@csrf_exempt
 def home(request): 
     if request.method == "POST":
         name = request.POST.get("name")
